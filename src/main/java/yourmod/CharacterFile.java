@@ -133,7 +133,7 @@ public class CharacterFile extends CustomPlayer {
 
     @Override
     public String getTitle(AbstractPlayer.PlayerClass playerClass) {
-        return NAMES[1];
+        return TEXT[1];
     }
 
     @Override

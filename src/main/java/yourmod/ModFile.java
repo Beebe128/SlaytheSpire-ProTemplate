@@ -29,7 +29,6 @@ import yourmod.util.ProAudio;
 import java.nio.charset.StandardCharsets;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-@SpireInitializer
 public class ModFile implements
         EditCardsSubscriber,
         EditRelicsSubscriber,
