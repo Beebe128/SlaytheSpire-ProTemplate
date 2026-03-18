@@ -5,6 +5,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import paintress.cards.AbstractPaintressCard;
 
 import static paintress.PaintressMod.makeID;
+import static paintress.util.Wiz.*;
 
 /**
  * Dodge — Maelle's basic defense. She deflects attacks with her blade.

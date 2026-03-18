@@ -32,29 +32,30 @@ public class ParryStatusPower extends AbstractPaintressPower {
     }
 
     @Override
-    public void onAttacked(DamageInfo info, int damageAmount) {
+    public int onAttacked(DamageInfo info, int damageAmount) {
         // Only react to normal enemy attacks that were fully blocked (0 HP damage)
-        if (info.type != DamageInfo.DamageType.NORMAL) return;
-        if (!(info.owner instanceof AbstractMonster)) return;
-        if (damageAmount != 0) return;
-        if (AbstractDungeon.player.currentBlock <= 0) return;
+        if (info.type == DamageInfo.DamageType.NORMAL
+                && info.owner instanceof AbstractMonster
+                && damageAmount == 0
+                && AbstractDungeon.player.currentBlock > 0) {
 
-        AbstractMonster attacker = (AbstractMonster) info.owner;
-        if (attacker.isDeadOrEscaped()) return;
+            AbstractMonster attacker = (AbstractMonster) info.owner;
+            if (!attacker.isDeadOrEscaped()) {
+                float pct;
+                if (isInVirtuose())       pct = 0.15f;
+                else if (isInOffensive()) pct = 0.10f;
+                else                      pct = 0.05f; // Defensive or no stance
 
-        float pct;
-        if (isInVirtuose())  pct = 0.15f;
-        else if (isInOffensive()) pct = 0.10f;
-        else pct = 0.05f;  // Defensive or no stance
+                int dmg = Math.max(1, (int)(attacker.maxHealth * pct * amount));
 
-        int dmg = Math.max(1, (int)(attacker.maxHealth * pct * amount));
-
-        AbstractDungeon.actionManager.addToBottom(
-                new DamageAction(attacker,
-                        new DamageInfo(owner, dmg, DamageInfo.DamageType.THORNS),
-                        AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
-
-        flash();
+                AbstractDungeon.actionManager.addToBottom(
+                        new DamageAction(attacker,
+                                new DamageInfo(owner, dmg, DamageInfo.DamageType.THORNS),
+                                AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
+                flash();
+            }
+        }
+        return damageAmount;
     }
 
     @Override

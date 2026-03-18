@@ -75,8 +75,8 @@ public class Paintress extends CustomPlayer {
 
     /** Gain 1 Gradient Charge at the start of every combat. */
     @Override
-    public void atBattleStartPreDraw() {
-        super.atBattleStartPreDraw();
+    public void atBattleStart() {
+        super.atBattleStart();
         AbstractDungeon.actionManager.addToBottom(
                 new ApplyPowerAction(this, this, new GradientChargePower(this, 1), 1));
     }
