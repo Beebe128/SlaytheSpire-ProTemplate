@@ -10,12 +10,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import paintress.cards.AbstractPaintressCard;
 import paintress.cards.cardvars.AbstractPaintressDynamicVariable;
 import paintress.potions.AbstractPaintressPotion;
+import paintress.powers.GradientChargePower;
 import paintress.relics.AbstractPaintressRelic;
 import paintress.util.ProAudio;
 
@@ -29,7 +34,8 @@ public class PaintressMod implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditCharactersSubscriber,
-        AddAudioSubscriber {
+        AddAudioSubscriber,
+        PostBattleStartSubscriber {
 
     public static final String modID = "paintress";
 
@@ -170,6 +176,16 @@ public class PaintressMod implements
     public void receiveAddAudio() {
         for (ProAudio a : ProAudio.values())
             BaseMod.addAudio(makeID(a.name()), makePath("audio/" + a.name().toLowerCase() + ".ogg"));
+    }
+
+    /** Gain 1 Gradient Charge at the start of every combat. */
+    @Override
+    public void receivePostBattleStart(AbstractRoom r) {
+        if (!(AbstractDungeon.player instanceof Paintress)) return;
+        if (!(r instanceof MonsterRoom)) return;
+        AbstractDungeon.actionManager.addToBottom(
+                new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player,
+                        new GradientChargePower(AbstractDungeon.player, 1), 1));
     }
 
     @Override
