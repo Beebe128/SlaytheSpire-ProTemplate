@@ -28,7 +28,7 @@ public class GrandFinale extends AbstractPaintressCard {
             int charges = getGradientCharges();
             if (charges > 0) {
                 if (adp().hasPower(GradientChargePower.POWER_ID)) {
-                    adp().powers.removeValue(adp().getPower(GradientChargePower.POWER_ID), true);
+                    adp().powers.remove(adp().getPower(GradientChargePower.POWER_ID));
                 }
                 int dmgEach = charges * magicNumber;
                 int[] multiDmg = new int[AbstractDungeon.getMonsters().monsters.size()];

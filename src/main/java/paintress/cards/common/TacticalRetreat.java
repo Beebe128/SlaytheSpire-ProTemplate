@@ -23,7 +23,7 @@ public class TacticalRetreat extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         enterDefensive();
-        atb(actionify(() -> adp().drawCards(magicNumber)));
+        atb(actionify(() -> att(new DrawCardAction(adp(), magicNumber))));
     }
 
     @Override

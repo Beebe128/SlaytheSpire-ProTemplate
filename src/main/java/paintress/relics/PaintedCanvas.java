@@ -1,5 +1,6 @@
 package paintress.relics;
 
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import paintress.Paintress;
@@ -24,7 +25,7 @@ public class PaintedCanvas extends AbstractPaintressRelic {
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped() && m.hasPower(BurnPower.POWER_ID)) {
                 flash();
-                AbstractDungeon.player.drawCards(1);
+                AbstractDungeon.actionManager.addToBottom(new DrawCardAction(AbstractDungeon.player, 1));
                 return;
             }
         }

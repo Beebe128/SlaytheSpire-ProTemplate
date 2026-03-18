@@ -38,7 +38,7 @@ public class StanceDance extends AbstractPaintressCard {
                 applyToSelf(new DefensiveStancePower(adp(), 1));
             }
         }));
-        atb(actionify(() -> adp().drawCards(1)));
+        atb(actionify(() -> att(new DrawCardAction(adp(), 1))));
         if (blockBonus) {
             atb(new GainBlockAction(adp(), adp(), 2));
         }

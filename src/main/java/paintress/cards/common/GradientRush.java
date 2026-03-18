@@ -24,7 +24,7 @@ public class GradientRush extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         gainGradient(magicNumber);
-        atb(actionify(() -> adp().drawCards(1)));
+        atb(actionify(() -> att(new DrawCardAction(adp(), 1))));
     }
 
     @Override

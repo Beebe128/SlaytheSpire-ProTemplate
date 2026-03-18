@@ -25,7 +25,7 @@ public class LastChance extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         enterVirtuose();
-        adp().energy.recharge(1);
+        atb(new GainEnergyAction(1));
     }
 
     @Override

@@ -22,7 +22,7 @@ public class FencersFlurry extends AbstractPaintressCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         allDmg(AttackEffect.SLASH_HORIZONTAL);
         enterOffensive();
-        forAllMonstersLiving(mo -> applyToEnemy(mo, new VulnerablePower(mo, adp(), 1, false)));
+        forAllMonstersLiving(mo -> applyToEnemy(mo, new VulnerablePower(mo, 1, false)));
     }
 
     @Override

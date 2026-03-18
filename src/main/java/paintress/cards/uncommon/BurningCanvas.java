@@ -29,7 +29,7 @@ public class BurningCanvas extends AbstractPaintressCard {
             if (!m.isDeadOrEscaped() && m.hasPower(BurnPower.POWER_ID)) {
                 AbstractPower pw = m.getPower(BurnPower.POWER_ID);
                 int stacks = pw.amount;
-                m.powers.removeValue(pw, true);
+                m.powers.remove(pw);
                 int totalDmg = stacks * magicNumber;
                 att(new DamageAction(m, new DamageInfo(adp(), totalDmg, DamageInfo.DamageType.NORMAL), AttackEffect.FIRE));
                 ExpeditionJournal.onBurnConsumed();

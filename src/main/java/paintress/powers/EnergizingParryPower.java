@@ -2,6 +2,7 @@ package paintress.powers;
 
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 
@@ -39,7 +40,7 @@ public class EnergizingParryPower extends AbstractPaintressPower {
     public void onPlayZeroCostCard() {
         zeroCostCardsThisTurn++;
         if (zeroCostCardsThisTurn <= amount) { // draw up to N times per 0-cost card
-            AbstractDungeon.player.drawCards(1);
+            AbstractDungeon.actionManager.addToBottom(new DrawCardAction(AbstractDungeon.player, 1));
         }
     }
 

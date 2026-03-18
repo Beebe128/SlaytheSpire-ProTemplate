@@ -1,5 +1,6 @@
 package paintress.relics;
 
+import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import paintress.Paintress;
 import paintress.powers.OffensiveStancePower;
@@ -23,7 +24,7 @@ public class MaellesLocket extends AbstractPaintressRelic {
     public void atBattleStart() {
         flash();
         applyToSelf(new OffensiveStancePower(AbstractDungeon.player, 1));
-        AbstractDungeon.player.energy.recharge(1);
+        AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
     }
 
     @Override

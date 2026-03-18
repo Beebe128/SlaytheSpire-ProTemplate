@@ -31,7 +31,7 @@ public class MezzoForteCard extends AbstractPaintressCard {
                 applyToSelf(new VirtuoseStancePower(adp(), 1));
             }
         }));
-        atb(actionify(() -> adp().drawCards(magicNumber)));
+        atb(actionify(() -> att(new DrawCardAction(adp(), magicNumber))));
     }
 
     @Override

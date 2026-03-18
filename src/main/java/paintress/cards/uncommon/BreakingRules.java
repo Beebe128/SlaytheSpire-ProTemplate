@@ -29,9 +29,9 @@ public class BreakingRules extends AbstractPaintressCard {
             int blocked = m.currentBlock;
             m.loseBlock(blocked);
             int energyGain = blocked / 3;
-            if (energyGain > 0) adp().energy.recharge(energyGain);
+            if (energyGain > 0) att(new GainEnergyAction(energyGain));
             att(new DamageAction(m, new DamageInfo(adp(), magicNumber, damageTypeForTurn), AttackEffect.BLUNT_HEAVY));
-            if (m.hasPower(com.megacrit.cardcrawl.powers.VulnerablePower.POWER_ID)) adp().energy.recharge(1);
+            if (m.hasPower(com.megacrit.cardcrawl.powers.VulnerablePower.POWER_ID)) att(new GainEnergyAction(1));
         }));
     }
 

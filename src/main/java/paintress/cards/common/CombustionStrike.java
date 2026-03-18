@@ -36,7 +36,7 @@ public class CombustionStrike extends AbstractPaintressCard {
                 int consume = Math.min(pw.amount, 10);
                 pw.amount -= consume;
                 if (pw.amount <= 0) {
-                    m.powers.removeValue(pw, true);
+                    m.powers.remove(pw);
                 } else {
                     pw.updateDescription();
                 }

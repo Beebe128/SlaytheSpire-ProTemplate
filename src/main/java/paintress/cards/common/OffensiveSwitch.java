@@ -21,7 +21,7 @@ public class OffensiveSwitch extends AbstractPaintressCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AttackEffect.SLASH_DIAGONAL);
         enterOffensive();
-        applyToEnemy(m, new VulnerablePower(m, adp(), 2, false));
+        applyToEnemy(m, new VulnerablePower(m, 2, false));
     }
 
     @Override

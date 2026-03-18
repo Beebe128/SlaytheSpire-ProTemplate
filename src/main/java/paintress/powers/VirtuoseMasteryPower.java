@@ -1,6 +1,7 @@
 package paintress.powers;
 
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -43,14 +44,7 @@ public class VirtuoseMasteryPower extends AbstractPaintressPower {
                     new DamageInfo(owner, secondDmg, DamageInfo.DamageType.NORMAL),
                     com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect.SLASH_DIAGONAL));
             if (drawOnSecondHit) {
-                atb(com.megacrit.cardcrawl.dungeons.AbstractDungeon.actionManager.addToBottom(
-                        new com.megacrit.cardcrawl.actions.AbstractGameAction() {
-                            public void update() {
-                                isDone = true;
-                                if (AbstractDungeon.player.drawPile.size() + AbstractDungeon.player.discardPile.size() > 0)
-                                    AbstractDungeon.player.drawCards(1);
-                            }
-                        }));
+                atb(new DrawCardAction(AbstractDungeon.player, 1));
             }
             midAttack = false;
         }

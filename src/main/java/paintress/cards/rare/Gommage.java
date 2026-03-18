@@ -29,7 +29,7 @@ public class Gommage extends AbstractPaintressCard {
             int charges = getGradientCharges();
             if (charges > 0) {
                 if (adp().hasPower(GradientChargePower.POWER_ID)) {
-                    adp().powers.removeValue(adp().getPower(GradientChargePower.POWER_ID), true);
+                    adp().powers.remove(adp().getPower(GradientChargePower.POWER_ID));
                 }
                 int totalDmg = charges * magicNumber;
                 att(new DamageAction(m, new DamageInfo(adp(), totalDmg, DamageInfo.DamageType.NORMAL), AttackEffect.FIRE));

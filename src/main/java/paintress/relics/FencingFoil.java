@@ -1,6 +1,7 @@
 package paintress.relics;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import paintress.Paintress;
 import paintress.powers.OffensiveStancePower;
@@ -31,7 +32,7 @@ public class FencingFoil extends AbstractPaintressRelic {
         String current = getCurrentStance();
         if (!prevStance.equals("offensive") && current.equals("offensive")) {
             flash();
-            AbstractDungeon.player.energy.recharge(1);
+            AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
         }
         prevStance = current;
     }

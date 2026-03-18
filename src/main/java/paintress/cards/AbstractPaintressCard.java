@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -194,7 +195,7 @@ public abstract class AbstractPaintressCard extends CustomCard {
             // Entering a new stance: draw 1 (represents AP gain)
             atb(actionify(() -> {
                 if (adp().drawPile.size() > 0 || adp().discardPile.size() > 0)
-                    adp().drawCards(1);
+                    att(new DrawCardAction(adp(), 1));
             }));
         }
         // If already in Defensive, clearStances already removed it (go to Stanceless)
@@ -208,7 +209,7 @@ public abstract class AbstractPaintressCard extends CustomCard {
             applyToSelf(new OffensiveStancePower(adp(), 1));
             atb(actionify(() -> {
                 if (adp().drawPile.size() > 0 || adp().discardPile.size() > 0)
-                    adp().drawCards(1);
+                    att(new DrawCardAction(adp(), 1));
             }));
         }
     }
@@ -221,7 +222,7 @@ public abstract class AbstractPaintressCard extends CustomCard {
             applyToSelf(new VirtuoseStancePower(adp(), 1));
             atb(actionify(() -> {
                 if (adp().drawPile.size() > 0 || adp().discardPile.size() > 0)
-                    adp().drawCards(1);
+                    att(new DrawCardAction(adp(), 1));
             }));
         }
     }

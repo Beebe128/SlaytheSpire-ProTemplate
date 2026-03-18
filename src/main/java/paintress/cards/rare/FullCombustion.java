@@ -29,7 +29,7 @@ public class FullCombustion extends AbstractPaintressCard {
                 AbstractPower burnPow = mo.getPower(BurnPower.POWER_ID);
                 final int stacks = burnPow.amount;
                 final AbstractMonster finalMo = mo;
-                mo.powers.removeValue(burnPow, true);
+                mo.powers.remove(burnPow);
                 atb(new DamageAction(finalMo,
                         new DamageInfo(adp(), stacks * magicNumber, DamageInfo.DamageType.NORMAL),
                         AttackEffect.FIRE));

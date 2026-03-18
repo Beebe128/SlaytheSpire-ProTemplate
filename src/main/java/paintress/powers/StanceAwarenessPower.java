@@ -2,6 +2,8 @@ package paintress.powers;
 
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 
@@ -26,9 +28,9 @@ public class StanceAwarenessPower extends AbstractPaintressPower {
 
     /** Called by AbstractPaintressCard on stance enter */
     public void onStanceEnter() {
-        AbstractDungeon.player.drawCards(1);
+        AbstractDungeon.actionManager.addToBottom(new DrawCardAction(AbstractDungeon.player, 1));
         if (giveEnergy) {
-            AbstractDungeon.player.energy.recharge(1);
+            AbstractDungeon.actionManager.addToBottom(new GainEnergyAction(1));
         }
     }
 

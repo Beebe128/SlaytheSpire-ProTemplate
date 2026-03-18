@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import paintress.cards.AbstractPaintressCard;
 
@@ -30,15 +31,19 @@ public class Payback extends AbstractPaintressCard {
     }
 
     @Override
-    public void triggerOnCardPlayedWhileInHand(com.megacrit.cardcrawl.cards.AbstractCard c) {
-        // Not used
+    public void applyPowers() {
+        super.applyPowers();
+        int reduction = Math.min(2, AbstractDungeon.player.currentBlock / 5);
+        costForTurn = Math.max(0, cost - reduction);
+        isCostModifiedForTurn = reduction > 0;
     }
 
     @Override
-    public float getCost() {
-        // Cost reduced by 1 for every 5 Block the player has (min 0)
-        int reduction = Math.min(2, adp().currentBlock / 5);
-        return Math.max(0, cost - reduction);
+    public void calculateCardDamage(AbstractMonster mo) {
+        super.calculateCardDamage(mo);
+        int reduction = Math.min(2, AbstractDungeon.player.currentBlock / 5);
+        costForTurn = Math.max(0, cost - reduction);
+        isCostModifiedForTurn = reduction > 0;
     }
 
     @Override

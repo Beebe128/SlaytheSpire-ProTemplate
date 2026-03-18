@@ -24,9 +24,9 @@ public class PaintedMe extends AbstractPaintressCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        atb(actionify(() -> adp().drawCards(magicNumber)));
+        atb(actionify(() -> att(new DrawCardAction(adp(), magicNumber))));
         if (isInVirtuose()) {
-            atb(actionify(() -> adp().drawCards(1)));
+            atb(actionify(() -> att(new DrawCardAction(adp(), 1))));
         }
     }
 

@@ -19,7 +19,7 @@ public class RainbowEdge extends AbstractPaintressCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        allDmg(AttackEffect.SLASH_WIDE);
+        allDmg(AttackEffect.SLASH_HORIZONTAL);
         enterOffensive();
     }
 

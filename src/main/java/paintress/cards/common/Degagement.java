@@ -21,7 +21,7 @@ public class Degagement extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AttackEffect.BLUNT_LIGHT);
-        applyToEnemy(m, new VulnerablePower(m, adp(), magicNumber, false));
+        applyToEnemy(m, new VulnerablePower(m, magicNumber, false));
     }
 
     @Override

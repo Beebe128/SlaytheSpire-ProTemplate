@@ -24,8 +24,8 @@ public class GuardDownCard extends AbstractPaintressCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        forAllMonstersLiving(mo -> applyToEnemy(mo, new com.megacrit.cardcrawl.powers.VulnerablePower(mo, adp(), magicNumber, false)));
-        adp().energy.recharge(1);
+        forAllMonstersLiving(mo -> applyToEnemy(mo, new com.megacrit.cardcrawl.powers.VulnerablePower(mo, magicNumber, false)));
+        atb(new GainEnergyAction(1));
     }
 
     @Override

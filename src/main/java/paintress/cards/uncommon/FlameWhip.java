@@ -39,7 +39,7 @@ public class FlameWhip extends AbstractPaintressCard {
                 AbstractPower p2 = m.getPower(BurnPower.POWER_ID);
                 p2.amount -= fConsumed;
                 if (p2.amount <= 0) {
-                    m.powers.removeValue(p2, true);
+                    m.powers.remove(p2);
                 } else {
                     p2.updateDescription();
                 }

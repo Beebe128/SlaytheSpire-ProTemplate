@@ -26,8 +26,8 @@ public class Revenge extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AttackEffect.BLUNT_HEAVY);
-        applyToEnemy(m, new com.megacrit.cardcrawl.powers.VulnerablePower(m, adp(), 2, false));
-        applyToEnemy(m, new com.megacrit.cardcrawl.powers.WeakPower(m, adp(), 2, false));
+        applyToEnemy(m, new com.megacrit.cardcrawl.powers.VulnerablePower(m, 2, false));
+        applyToEnemy(m, new com.megacrit.cardcrawl.powers.WeakPower(m, 2, false));
     }
 
     @Override

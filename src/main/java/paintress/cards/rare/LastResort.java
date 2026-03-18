@@ -25,7 +25,7 @@ public class LastResort extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         enterVirtuose();
-        adp().energy.recharge(magicNumber);
+        atb(new GainEnergyAction(magicNumber));
     }
 
     @Override
