@@ -138,41 +138,142 @@ mods/
 
 ## Building from Source (Advanced)
 
-If no compiled `.jar` release is available yet, you can build it yourself — but you need Slay the Spire installed.
+If no compiled `.jar` release is available yet, you can build it yourself. This requires a bit of setup but is straightforward if you follow each step.
 
-**Requirements:**
-- Java 8 JDK
-- Apache Maven
-- Slay the Spire installed on Steam
+---
 
-**Steps:**
-1. Clone the repository:
+### What you need
+
+**Java 8 JDK** — the programming language the mod is written in.
+**Apache Maven** — a build tool. Think of it as a "compiler + packager" that reads the project recipe (`pom.xml`) and produces the `.jar` file.
+**Git** — to download the source code.
+**Slay the Spire** installed on Steam (the build needs to reference the game's own `.jar` files).
+
+---
+
+### Step A — Install Java 8 JDK
+
+The mod requires Java **8** specifically (not 11, not 17 — the game itself runs on Java 8).
+
+**Windows / Mac:**
+1. Go to [Adoptium](https://adoptium.net/temurin/releases/?version=8) and download the **JDK 8** installer for your OS
+2. Run the installer, click through the defaults
+3. To confirm it worked, open a terminal (Command Prompt on Windows, Terminal on Mac) and type:
    ```
-   git clone https://github.com/Beebe128/SlaytheSpire-ProTemplate.git
-   cd SlaytheSpire-ProTemplate
-   git checkout claude/paintress-character-mod-MJ4XP
+   java -version
+   ```
+   You should see something like `openjdk version "1.8.0_..."`. The `1.8` means Java 8.
+
+**Linux:**
+```
+sudo apt install openjdk-8-jdk    # Debian/Ubuntu
+sudo pacman -S jdk8-openjdk       # Arch
+```
+
+---
+
+### Step B — Install Apache Maven
+
+Maven is what turns the source code into a `.jar` file.
+
+**Windows:**
+1. Download the binary zip from [maven.apache.org/download.cgi](https://maven.apache.org/download.cgi) — grab the file ending in `-bin.zip`
+2. Unzip it somewhere permanent, like `C:\Program Files\Maven\`
+3. Add Maven's `bin` folder to your system PATH:
+   - Search "environment variables" in the Start menu → Edit the system environment variables
+   - Under "System variables", find `Path` → Edit → New → paste the path to Maven's `bin` folder (e.g. `C:\Program Files\Maven\apache-maven-3.x.x\bin`)
+4. Open a new Command Prompt and confirm:
+   ```
+   mvn -version
    ```
 
-2. Open `pom.xml` and update the `<Steam.path>` property to your Steam installation path:
-   ```xml
-   <!-- Windows -->
-   <Steam.path>C:/Program Files (x86)/Steam/steamapps/</Steam.path>
+**Mac (using Homebrew):**
+```
+brew install maven
+```
 
-   <!-- Mac -->
-   <Steam.path>/Users/YourName/Library/Application Support/Steam/steamapps/</Steam.path>
+**Linux:**
+```
+sudo apt install maven      # Debian/Ubuntu
+sudo pacman -S maven        # Arch
+```
 
-   <!-- Linux -->
-   <Steam.path>/home/yourname/.steam/steam/steamapps/</Steam.path>
-   ```
+Confirm it works: `mvn -version` — you should see version info printed out.
 
-3. Build the mod:
-   ```
-   mvn package
-   ```
+---
 
-4. Find the compiled mod at `target/ThePaintress.jar`
+### Step C — Download the source code
 
-5. Copy it to your `mods` folder (Step 5 above)
+Open a terminal and run:
+
+```
+git clone https://github.com/Beebe128/SlaytheSpire-ProTemplate.git
+cd SlaytheSpire-ProTemplate
+git checkout claude/paintress-character-mod-MJ4XP
+```
+
+This downloads the source code and switches to the correct branch.
+
+---
+
+### Step D — Point the build at your Steam folder
+
+The mod needs to find Slay the Spire's game files to compile against. Open `pom.xml` in any text editor (Notepad works fine) and find this line:
+
+```xml
+<Steam.path>C:/Program Files (x86)/Steam/steamapps/</Steam.path>
+```
+
+Replace that path with wherever Steam is installed on your machine:
+
+**Windows (default):**
+```xml
+<Steam.path>C:/Program Files (x86)/Steam/steamapps/</Steam.path>
+```
+
+**Mac:**
+```xml
+<Steam.path>/Users/YOUR_USERNAME/Library/Application Support/Steam/steamapps/</Steam.path>
+```
+
+**Linux:**
+```xml
+<Steam.path>/home/YOUR_USERNAME/.steam/steam/steamapps/</Steam.path>
+```
+
+Replace `YOUR_USERNAME` with your actual username. Save the file.
+
+---
+
+### Step E — Build the mod
+
+In the terminal, make sure you're inside the `SlaytheSpire-ProTemplate` folder, then run:
+
+```
+mvn package
+```
+
+**What this does:** Maven reads `pom.xml` (the project recipe), compiles all the Java source files, and bundles everything — the compiled code plus the image/audio resources — into a single `.jar` file. This is the mod file.
+
+It will print a lot of output as it works. When it finishes you should see:
+```
+[INFO] BUILD SUCCESS
+```
+
+If you see `BUILD FAILURE`, the most common causes are:
+- Wrong Steam path in `pom.xml` — double-check it points to a folder that contains `common/SlayTheSpire/`
+- Wrong Java version — run `java -version` and confirm it says `1.8`
+
+---
+
+### Step F — Copy the mod file
+
+The finished mod is at:
+```
+target/ThePaintress.jar
+```
+
+Copy this file to your `mods` folder (see Step 5 in the main install guide above).
 
 ---
 
