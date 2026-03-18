@@ -14,7 +14,7 @@ public abstract class AbstractPaintressPotion extends CustomPotion {
 
     public AbstractPaintressPotion(String id, String name, PotionRarity rarity, PotionSize size,
                                     Color liquidColor, Color hybridColor, Color spotsColor) {
-        super(id, name, rarity, size, PotionColor.COMMON);
+        super(id, name, rarity, size, PotionColor.WHITE);
         this.liquidColor = liquidColor;
         this.hybridColor = hybridColor;
         this.spotsColor = spotsColor;
@@ -24,7 +24,7 @@ public abstract class AbstractPaintressPotion extends CustomPotion {
     public AbstractPaintressPotion(String id, String name, PotionRarity rarity, PotionSize size,
                                     Color liquidColor, Color hybridColor, Color spotsColor,
                                     AbstractPlayer.PlayerClass pool) {
-        super(id, name, rarity, size, PotionColor.COMMON);
+        super(id, name, rarity, size, PotionColor.WHITE);
         this.liquidColor = liquidColor;
         this.hybridColor = hybridColor;
         this.spotsColor = spotsColor;
