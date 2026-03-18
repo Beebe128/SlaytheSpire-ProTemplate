@@ -1,0 +1,31 @@
+package paintress.cards.basic;
+
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import paintress.cards.AbstractPaintressCard;
+
+import static paintress.PaintressMod.makeID;
+
+/**
+ * Parry — Maelle's basic defense. She deflects attacks with her blade.
+ * A fencer's guard.
+ */
+public class Parry extends AbstractPaintressCard {
+    public static final String ID = makeID("Parry");
+
+    public Parry() {
+        super(ID, 1, CardType.SKILL, CardRarity.BASIC, CardTarget.SELF);
+        baseBlock = 5;
+        tags.add(CardTags.STARTER_DEFEND);
+    }
+
+    @Override
+    public void use(AbstractPlayer p, AbstractMonster m) {
+        blck();
+    }
+
+    @Override
+    public void upp() {
+        upgradeBlock(3);
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "${ModID}:DefensiveStance": {
+    "NAME": "Defensive"
+  },
+  "${ModID}:OffensiveStance": {
+    "NAME": "Offensive"
+  },
+  "${ModID}:VirtuoseStance": {
+    "NAME": "Virtuose"
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "PROPER_NAME": "Burn",
+    "NAMES": ["burn", "burning"],
+    "DESCRIPTION": "A stackable fire DOT. At the start of the affected creature's turn, each stack deals damage. Stacks decrease by 3 each turn."
+  },
+  {
+    "PROPER_NAME": "Defensive Stance",
+    "NAMES": ["defensive stance", "defensive"],
+    "DESCRIPTION": "Take 50% less damage. Entering a new stance draws 1 card. Entering the same stance exits it."
+  },
+  {
+    "PROPER_NAME": "Offensive Stance",
+    "NAMES": ["offensive stance", "offensive"],
+    "DESCRIPTION": "Deal 50% more damage, but take 50% more damage. Entering a new stance draws 1 card. Entering the same stance exits it."
+  },
+  {
+    "PROPER_NAME": "Virtuose Stance",
+    "NAMES": ["virtuose stance", "virtuose"],
+    "DESCRIPTION": "Deal 200% more damage (triple total). Entering the same stance exits it. The pinnacle of combat artistry."
+  },
+  {
+    "PROPER_NAME": "Gradient",
+    "NAMES": ["gradient", "gradient charge", "gradient charges"],
+    "DESCRIPTION": "A stackable resource (max 15). Certain powerful attacks cost Gradient Charges to use."
+  }
+]

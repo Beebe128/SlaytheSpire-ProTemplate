@@ -1,0 +1,325 @@
+{
+  "${ModID}:Slash": {
+    "NAME": "Slash",
+    "DESCRIPTION": "Deal !D! damage."
+  },
+  "${ModID}:Parry": {
+    "NAME": "Parry",
+    "DESCRIPTION": "Gain !B! Block."
+  },
+  "${ModID}:OffensiveSwitch": {
+    "NAME": "Offensive Switch",
+    "DESCRIPTION": "Enter [Offensive] Stance. Deal !D! damage. Apply 2 Vulnerable."
+  },
+  "${ModID}:Percee": {
+    "NAME": "Percée",
+    "DESCRIPTION": "Deal !D! damage. Enter [Defensive] Stance. NL If in [Offensive] or [Virtuose] stance, deal !M! additional damage."
+  },
+  "${ModID}:Spark": {
+    "NAME": "Spark",
+    "DESCRIPTION": "Enter [Defensive] Stance. Deal !D! damage. Apply !M! Burn. NL If in [Offensive] or [Virtuose], apply 2 more Burn."
+  },
+  "${ModID}:FencersFlurry": {
+    "NAME": "Fencer's Flurry",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. Enter [Offensive] Stance. Apply 1 Vulnerable to all."
+  },
+  "${ModID}:MomentumStrike": {
+    "NAME": "Momentum Strike",
+    "DESCRIPTION": "Deal !D! damage. Enter [Defensive] Stance. NL If in [Offensive] or [Virtuose], deal !M! additional damage."
+  },
+  "${ModID}:GesturalStrike": {
+    "NAME": "Gestural Strike",
+    "DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance."
+  },
+  "${ModID}:Degagement": {
+    "NAME": "Dégagement",
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Vulnerable."
+  },
+  "${ModID}:CombustionStrike": {
+    "NAME": "Combustion Strike",
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Burn to target per Burn stack on them (max 10). NL Consumes Burn."
+  },
+  "${ModID}:VoidSlash": {
+    "NAME": "Void Slash",
+    "DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance. NL If in [Defensive] or [Virtuose], apply 1 Vulnerable."
+  },
+  "${ModID}:PrecisionBlow": {
+    "NAME": "Precision Blow",
+    "DESCRIPTION": "Deal !D! damage. Enter [Defensive] Stance."
+  },
+  "${ModID}:BurningFlurry": {
+    "NAME": "Burning Flurry",
+    "DESCRIPTION": "Deal !D! damage !M! times. Apply 1 Burn per hit."
+  },
+  "${ModID}:QuickStrike": {
+    "NAME": "Quick Strike",
+    "DESCRIPTION": "Deal !D! damage."
+  },
+  "${ModID}:Guard": {
+    "NAME": "Guard",
+    "DESCRIPTION": "Gain !B! Block. Enter [Defensive] Stance."
+  },
+  "${ModID}:IronParry": {
+    "NAME": "Iron Parry",
+    "DESCRIPTION": "Gain !B! Block. NL If in [Defensive] Stance, gain !M! additional Block."
+  },
+  "${ModID}:Egide": {
+    "NAME": "Égide",
+    "DESCRIPTION": "Gain !B! Block. Gain 3 Thorns."
+  },
+  "${ModID}:MezzoForte": {
+    "NAME": "Mezzo Forte",
+    "DESCRIPTION": "Maintain your current stance. Draw !M! card(s)."
+  },
+  "${ModID}:GuardUp": {
+    "NAME": "Guard Up",
+    "DESCRIPTION": "Gain !B! Block. Gain 2 Plated Armor."
+  },
+  "${ModID}:TacticalRetreat": {
+    "NAME": "Tactical Retreat",
+    "DESCRIPTION": "Enter [Defensive] Stance. Draw !M! cards."
+  },
+  "${ModID}:IgnitionPoint": {
+    "NAME": "Ignition Point",
+    "DESCRIPTION": "Apply !M! Burn to target."
+  },
+  "${ModID}:GradientRush": {
+    "NAME": "Gradient Rush",
+    "DESCRIPTION": "Gain !M! Gradient Charge(s). Draw 1. Exhaust.",
+    "UPGRADE_DESCRIPTION": "Gain !M! Gradient Charge(s). Draw 1."
+  },
+  "${ModID}:StanceDance": {
+    "NAME": "Stance Dance",
+    "DESCRIPTION": "Cycle to the next stance. Draw 1 card."
+  },
+  "${ModID}:QuickDefense": {
+    "NAME": "Quick Defense",
+    "DESCRIPTION": "Gain !B! Block. NL If in [Defensive] Stance, gain !M! additional Block."
+  },
+  "${ModID}:ClearMind": {
+    "NAME": "Clear Mind",
+    "DESCRIPTION": "Draw !M! cards. NL If in [Virtuose] Stance, gain 1 Energy."
+  },
+  "${ModID}:ParryStance": {
+    "NAME": "Parry Stance",
+    "DESCRIPTION": "Gain !B! Block. Enter [Defensive] Stance."
+  },
+  "${ModID}:Preparation": {
+    "NAME": "Preparation",
+    "DESCRIPTION": "Gain !M! Gradient Charge(s). Draw 1. Exhaust."
+  },
+  "${ModID}:BurnAffinityCard": {
+    "NAME": "Burn Affinity",
+    "DESCRIPTION": "At the start of your turn, deal !M! damage to each Burning enemy."
+  },
+  "${ModID}:AugmentedCounterCard": {
+    "NAME": "Augmented Counter",
+    "DESCRIPTION": "Whenever you lose HP, deal !M! damage back to the attacker."
+  },
+  "${ModID}:EnergizingParryCard": {
+    "NAME": "Energizing Parry",
+    "DESCRIPTION": "Whenever you play a 0-cost card, draw !M! card(s)."
+  },
+  "${ModID}:StanceAwarenessCard": {
+    "NAME": "Stance Awareness",
+    "DESCRIPTION": "Whenever you change stance, draw 1 card.",
+    "UPGRADE_DESCRIPTION": "Whenever you change stance, draw 1 card and gain 1 Energy."
+  },
+  "${ModID}:VigilantPainterCard": {
+    "NAME": "Vigilant Painter",
+    "DESCRIPTION": "At the start of your turn while in [Defensive] Stance, gain !M! Block."
+  },
+  "${ModID}:BreakingRules": {
+    "NAME": "Breaking Rules",
+    "DESCRIPTION": "Deal !D! damage twice. Destroy all enemy shields. NL Gain 1 Energy per shield destroyed. NL If target is Vulnerable, take another turn."
+  },
+  "${ModID}:RainOfFire": {
+    "NAME": "Rain of Fire",
+    "DESCRIPTION": "Deal !D! damage twice. Apply !M! Burn per hit. NL In [Defensive] Stance: apply 2 more Burn per hit."
+  },
+  "${ModID}:Pyrolyse": {
+    "NAME": "Pyrolyse",
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Burn. Enter [Offensive] Stance."
+  },
+  "${ModID}:FleuretFury": {
+    "NAME": "Fleuret Fury",
+    "DESCRIPTION": "Deal !D! damage !M! times. Maintain current stance."
+  },
+  "${ModID}:SwordBallet": {
+    "NAME": "Sword Ballet",
+    "DESCRIPTION": "Deal !D! damage !M! times. Enter [Defensive] Stance. NL Critical hits deal double damage."
+  },
+  "${ModID}:PhantomStrike": {
+    "NAME": "Phantom Strike",
+    "DESCRIPTION": "Deal !D! damage 4 times. Enter [Defensive] Stance. NL Gain !M! Gradient Charges."
+  },
+  "${ModID}:Revenge": {
+    "NAME": "Revenge",
+    "DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance. NL Deals bonus damage equal to damage taken last turn."
+  },
+  "${ModID}:CriticalBurn": {
+    "NAME": "Critical Burn",
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Burn. NL Deals !M! extra damage if target is Burning."
+  },
+  "${ModID}:OffensiveFinale": {
+    "NAME": "Offensive Finale",
+    "DESCRIPTION": "Deal !D! damage. NL If in [Offensive] or [Virtuose] Stance, deal !M! additional damage and enter [Virtuose]."
+  },
+  "${ModID}:FlameWhip": {
+    "NAME": "Flame Whip",
+    "DESCRIPTION": "Apply !M! Burn to ALL enemies. Deal !D! damage to ALL enemies."
+  },
+  "${ModID}:Payback": {
+    "NAME": "Payback",
+    "DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance. NL Costs 1 less for each 5 Block you have (min 0)."
+  },
+  "${ModID}:DoubleEdge": {
+    "NAME": "Double Edge",
+    "DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance. NL Deal !M! damage to yourself."
+  },
+  "${ModID}:RainbowEdge": {
+    "NAME": "Rainbow Edge",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. Enter [Offensive] Stance."
+  },
+  "${ModID}:VoidPierce": {
+    "NAME": "Void Pierce",
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Vulnerable. NL If target was already Vulnerable, enter [Virtuose] Stance."
+  },
+  "${ModID}:BurningCanvas": {
+    "NAME": "Burning Canvas",
+    "DESCRIPTION": "Deal !D! damage !M! times. Damage increased per Burn on target. Apply 1 Burn per hit. Enter [Offensive] Stance."
+  },
+  "${ModID}:PhoenixFlame": {
+    "NAME": "Phoenix Flame",
+    "DESCRIPTION": "Apply 10 Burn to ALL enemies. NL Gradient Attack: does not consume your turn."
+  },
+  "${ModID}:SwiftStride": {
+    "NAME": "Swift Stride",
+    "DESCRIPTION": "Deal !D! damage twice. NL If target is Burning, enter [Virtuose] Stance. Otherwise enter [Defensive] Stance."
+  },
+  "${ModID}:LastChance": {
+    "NAME": "Last Chance",
+    "DESCRIPTION": "Deal !D! damage. Enter [Virtuose] Stance. NL Self-apply 5 Vulnerable."
+  },
+  "${ModID}:GuardDownCard": {
+    "NAME": "Guard Down",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. Apply !M! Vulnerable to all."
+  },
+  "${ModID}:DefensiveForm": {
+    "NAME": "Defensive Form",
+    "DESCRIPTION": "Gain !B! Block. Enter [Defensive] Stance. NL Also draw 1 card."
+  },
+  "${ModID}:ShieldBreaker": {
+    "NAME": "Shield Breaker",
+    "DESCRIPTION": "Gain !B! Block. NL If in [Offensive] or [Virtuose] Stance, also deal !M! damage to target."
+  },
+  "${ModID}:PaintedMe": {
+    "NAME": "Painted Me",
+    "DESCRIPTION": "Draw !M! cards. NL If in [Virtuose] Stance, draw 1 additional card."
+  },
+  "${ModID}:FocusedParry": {
+    "NAME": "Focused Parry",
+    "DESCRIPTION": "Gain !B! Block. Enter [Defensive] Stance. NL If already in [Defensive] Stance, gain 1 Energy."
+  },
+  "${ModID}:VirtuosePrep": {
+    "NAME": "Virtuose Prep",
+    "DESCRIPTION": "Gain !B! Block. Gain !M! Gradient Charges. Enter [Virtuose] Stance. NL If in [Offensive] Stance, draw 1 card."
+  },
+  "${ModID}:GlassCanonCard": {
+    "NAME": "Glass Canon",
+    "DESCRIPTION": "Gain !M! Strength. Lose !M! Dexterity. NL Deal extra damage but take extra damage."
+  },
+  "${ModID}:ImmaculateCard": {
+    "NAME": "Immaculate",
+    "DESCRIPTION": "While at full HP, deal !M! additional damage."
+  },
+  "${ModID}:VirtuoseFlowCard": {
+    "NAME": "Virtuose Flow",
+    "DESCRIPTION": "At the start of your turn while in [Virtuose] Stance, deal !M! damage to ALL enemies."
+  },
+  "${ModID}:BurnMasteryCard": {
+    "NAME": "Burn Mastery",
+    "DESCRIPTION": "While any enemy is Burning, take !M! less damage."
+  },
+  "${ModID}:CriticalMomentCard": {
+    "NAME": "Critical Moment",
+    "DESCRIPTION": "Your first Attack each turn deals !M! additional damage."
+  },
+  "${ModID}:RelentlessAssault": {
+    "NAME": "Relentless Assault",
+    "DESCRIPTION": "Whenever you play an Attack, apply !M! Burn to target."
+  },
+  "${ModID}:VirtuoseStateCard": {
+    "NAME": "Virtuose State",
+    "DESCRIPTION": "Whenever you change stance, draw 1 card.",
+    "UPGRADE_DESCRIPTION": "Whenever you change stance, draw 1 card and gain 1 Energy."
+  },
+  "${ModID}:Stendhal": {
+    "NAME": "Stendhal",
+    "DESCRIPTION": "Deal !D! damage. Self-apply 5 Vulnerable. NL A masterwork of overwhelming force."
+  },
+  "${ModID}:Gommage": {
+    "NAME": "Gommage",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. Enter [Virtuose] Stance. NL Instantly kill enemies below 20% HP. Gradient Attack."
+  },
+  "${ModID}:VoidDomination": {
+    "NAME": "Void Domination",
+    "DESCRIPTION": "Deal !D! damage. NL Bonus damage equal to your Block."
+  },
+  "${ModID}:StrikeOfGenius": {
+    "NAME": "Strike of Genius",
+    "DESCRIPTION": "Deal !D! damage twice. NL Gain !M! Gradient Charges."
+  },
+  "${ModID}:BlazeOfGlory": {
+    "NAME": "Blaze of Glory",
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Burn. NL Deals 2 extra damage per Burn on target."
+  },
+  "${ModID}:AnnihilatingBlow": {
+    "NAME": "Annihilating Blow",
+    "DESCRIPTION": "Deal !D! damage. Apply 3 Vulnerable to target. Enter [Virtuose] Stance."
+  },
+  "${ModID}:FullCombustion": {
+    "NAME": "Full Combustion",
+    "DESCRIPTION": "Apply !M! Burn to ALL enemies. NL If any enemy was already Burning, deal !D! damage to them."
+  },
+  "${ModID}:GrandFinale": {
+    "NAME": "Grand Finale",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL Apply !M! Vulnerable to all. Enter [Offensive] Stance."
+  },
+  "${ModID}:TotalOffensive": {
+    "NAME": "Total Offensive",
+    "DESCRIPTION": "Enter [Offensive] Stance. NL This turn, Attacks deal !M! additional damage."
+  },
+  "${ModID}:GustaveHomage": {
+    "NAME": "Gustave's Homage",
+    "DESCRIPTION": "Draw !M! cards. Gain 1 Energy. NL If in [Virtuose] Stance, draw 2 more cards."
+  },
+  "${ModID}:LastResort": {
+    "NAME": "Last Resort",
+    "DESCRIPTION": "Gain !B! Block. NL If below 50% HP, gain !M! additional Block and enter [Defensive] Stance."
+  },
+  "${ModID}:StanceIncreaseCard": {
+    "NAME": "Stance Surge",
+    "DESCRIPTION": "Whenever you change stance, deal !M! damage to ALL enemies."
+  },
+  "${ModID}:VirtuoseMasteryCard": {
+    "NAME": "Virtuose Mastery",
+    "DESCRIPTION": "Attacks in [Virtuose] Stance deal a second hit at 50% damage."
+  },
+  "${ModID}:BerserkerPainterCard": {
+    "NAME": "Berserker Painter",
+    "DESCRIPTION": "Whenever you play an Attack, apply !M! Burn to target."
+  },
+  "${ModID}:PaintedPowerCard": {
+    "NAME": "Painted Power",
+    "DESCRIPTION": "Attacks deal !M! additional damage per Burn stack on target (max 10)."
+  },
+  "${ModID}:ExpeditionSpiritCard": {
+    "NAME": "Expedition Spirit",
+    "DESCRIPTION": "Whenever you change stance, gain !M! Gradient Charges."
+  },
+  "${ModID}:FlamingHeartCard": {
+    "NAME": "Flaming Heart",
+    "DESCRIPTION": "Once per combat, survive a lethal hit with 1 HP. NL Gain !M! Gradient Charges when triggered."
+  }
+}

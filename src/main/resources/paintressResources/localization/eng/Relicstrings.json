@@ -1,0 +1,47 @@
+{
+  "${ModID}:ArtistsPalette": {
+    "NAME": "Artist's Palette",
+    "FLAVOR": "A palette bearing every color Maelle ever used.",
+    "DESCRIPTIONS": ["At the start of each combat, gain 2 Gradient Charges."]
+  },
+  "${ModID}:FencingFoil": {
+    "NAME": "Fencing Foil",
+    "FLAVOR": "A lightweight foil humming with pent-up energy.",
+    "DESCRIPTIONS": ["When you enter Offensive Stance, gain 1 Energy."]
+  },
+  "${ModID}:PaintedCanvas": {
+    "NAME": "Painted Canvas",
+    "FLAVOR": "A canvas splattered with ash and fire.",
+    "DESCRIPTIONS": ["At the start of your turn, if any enemy is Burning, draw 1 card."]
+  },
+  "${ModID}:GuardiansCrest": {
+    "NAME": "Guardian's Crest",
+    "FLAVOR": "A crest worn by those who protect others.",
+    "DESCRIPTIONS": ["When you enter Defensive Stance, gain 3 Block."]
+  },
+  "${ModID}:VirtuoseMedal": {
+    "NAME": "Virtuose Medal",
+    "FLAVOR": "Awarded for exceptional mastery of the blade.",
+    "DESCRIPTIONS": ["The first time you enter Virtuose Stance per combat, deal 5 damage to all enemies."]
+  },
+  "${ModID}:ExpeditionJournal": {
+    "NAME": "Expedition Journal",
+    "FLAVOR": "Notes scrawled by Gustave on every page.",
+    "DESCRIPTIONS": ["Whenever Burn is consumed on an enemy, gain 1 Energy."]
+  },
+  "${ModID}:MaellesLocket": {
+    "NAME": "Maelle's Locket",
+    "FLAVOR": "Contains a faded painting of the expedition.",
+    "DESCRIPTIONS": ["At the start of combat, enter Offensive Stance and gain 1 Energy."]
+  },
+  "${ModID}:Medalum": {
+    "NAME": "Medalum",
+    "FLAVOR": "A rapier that seems to resonate with void energy.",
+    "DESCRIPTIONS": ["At the start of combat, enter Virtuose Stance. NL Attacks in Virtuose Stance apply 1 Burn."]
+  },
+  "${ModID}:GommageCore": {
+    "NAME": "Gommage Core",
+    "FLAVOR": "A crystallized remnant of erased reality.",
+    "DESCRIPTIONS": ["Gradient Charges persist between combats (max 15)."]
+  }
+}

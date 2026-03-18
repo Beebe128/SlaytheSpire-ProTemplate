@@ -1,0 +1,86 @@
+{
+  "${ModID}:Burn": {
+    "NAME": "Burn",
+    "DESCRIPTIONS": ["At the start of this creature's turn, deal ", " damage. Decreases by 3 per turn."]
+  },
+  "${ModID}:DefensiveStance": {
+    "NAME": "Defensive Stance",
+    "DESCRIPTIONS": ["Take 50% less damage. Parrying grants bonus energy."]
+  },
+  "${ModID}:OffensiveStance": {
+    "NAME": "Offensive Stance",
+    "DESCRIPTIONS": ["Deal 50% more damage. Take 50% more damage."]
+  },
+  "${ModID}:VirtuoseStance": {
+    "NAME": "Virtuose Stance",
+    "DESCRIPTIONS": ["Deal 200% more damage (triple)."]
+  },
+  "${ModID}:GradientCharge": {
+    "NAME": "Gradient Charges",
+    "DESCRIPTIONS": ["Gradient charges stored: ", ". Maximum 15."]
+  },
+  "${ModID}:BurnAffinity": {
+    "NAME": "Burn Affinity",
+    "DESCRIPTIONS": ["At start of turn, deal ", " damage to each Burning enemy."]
+  },
+  "${ModID}:AugmentedCounter": {
+    "NAME": "Augmented Counter",
+    "DESCRIPTIONS": ["When you lose HP, deal ", " damage to the attacker."]
+  },
+  "${ModID}:EnergizingParry": {
+    "NAME": "Energizing Parry",
+    "DESCRIPTIONS": ["Playing a 0-cost card draws ", " card(s)."]
+  },
+  "${ModID}:StanceAwareness": {
+    "NAME": "Stance Awareness",
+    "DESCRIPTIONS": ["Changing stance draws 1 card.", " Also gain 1 Energy."]
+  },
+  "${ModID}:VigilantPainter": {
+    "NAME": "Vigilant Painter",
+    "DESCRIPTIONS": ["At turn start while Defensive, gain ", " Block."]
+  },
+  "${ModID}:BurnMastery": {
+    "NAME": "Burn Mastery",
+    "DESCRIPTIONS": ["While any enemy is Burning, take ", " less damage."]
+  },
+  "${ModID}:CriticalMoment": {
+    "NAME": "Critical Moment",
+    "DESCRIPTIONS": ["First Attack each turn deals ", " additional damage."]
+  },
+  "${ModID}:GlassCanon": {
+    "NAME": "Glass Canon",
+    "DESCRIPTIONS": ["Deal bonus damage, take bonus damage (+", "/−", ")."]
+  },
+  "${ModID}:Immaculate": {
+    "NAME": "Immaculate",
+    "DESCRIPTIONS": ["While at full HP, deal ", " extra damage."]
+  },
+  "${ModID}:VirtuoseFlow": {
+    "NAME": "Virtuose Flow",
+    "DESCRIPTIONS": ["At turn start in Virtuose, deal ", " damage to all enemies."]
+  },
+  "${ModID}:StanceIncrease": {
+    "NAME": "Stance Surge",
+    "DESCRIPTIONS": ["On stance change, deal ", " damage to all enemies."]
+  },
+  "${ModID}:VirtuoseMastery": {
+    "NAME": "Virtuose Mastery",
+    "DESCRIPTIONS": ["Attacks in Virtuose deal a second hit at 50% damage."]
+  },
+  "${ModID}:BerserkerPainter": {
+    "NAME": "Berserker Painter",
+    "DESCRIPTIONS": ["On Attack, apply ", " Burn to target."]
+  },
+  "${ModID}:PaintedPower": {
+    "NAME": "Painted Power",
+    "DESCRIPTIONS": ["Attacks deal ", " extra damage per Burn on target (max 10)."]
+  },
+  "${ModID}:ExpeditionSpirit": {
+    "NAME": "Expedition Spirit",
+    "DESCRIPTIONS": ["On stance change, gain ", " Gradient Charges."]
+  },
+  "${ModID}:FlamingHeart": {
+    "NAME": "Flaming Heart",
+    "DESCRIPTIONS": ["Once per combat, survive lethal hit at 1 HP. Gain ", " Gradient Charges when triggered."]
+  }
+}

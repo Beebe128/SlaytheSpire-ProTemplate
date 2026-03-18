@@ -1,0 +1,10 @@
+{
+  "${ModID}:Paintress": {
+    "TEXT": [
+      "Maelle",
+      "The Paintress",
+      "A fencer from Expedition 33. Masters three fighting stances — Defensive, Offensive, and Virtuose — cycling between them to unleash devastating combos. She fights with fire and void energy, burning her enemies before finishing them with blade strikes of tremendous power."
+    ],
+    "NAMES": ["Maelle"]
+  }
+}

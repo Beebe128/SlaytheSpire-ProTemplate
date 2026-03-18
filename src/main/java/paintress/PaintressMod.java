@@ -1,0 +1,187 @@
+package paintress;
+
+import basemod.AutoAdd;
+import basemod.BaseMod;
+import basemod.abstracts.DynamicVariable;
+import basemod.helpers.RelicType;
+import basemod.interfaces.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.Keyword;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
+import com.google.gson.Gson;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import paintress.cards.AbstractPaintressCard;
+import paintress.cards.cardvars.AbstractPaintressDynamicVariable;
+import paintress.potions.AbstractPaintressPotion;
+import paintress.relics.AbstractPaintressRelic;
+import paintress.util.ProAudio;
+
+import java.nio.charset.StandardCharsets;
+
+@SuppressWarnings({"unused", "WeakerAccess"})
+@SpireInitializer
+public class PaintressMod implements
+        EditCardsSubscriber,
+        EditRelicsSubscriber,
+        EditStringsSubscriber,
+        EditKeywordsSubscriber,
+        EditCharactersSubscriber,
+        AddAudioSubscriber {
+
+    public static final String modID = "paintress";
+
+    // Maelle's color palette: deep purple-violet with gold accents (black/purple jacket, gold Art Deco)
+    public static Color characterColor = new Color(0.42f, 0.22f, 0.72f, 1f);
+
+    public static final String SHOULDER1 = makeCharacterPath("mainChar/shoulder.png");
+    public static final String SHOULDER2 = makeCharacterPath("mainChar/shoulder2.png");
+    public static final String CORPSE = makeCharacterPath("mainChar/corpse.png");
+    private static final String ATTACK_S_ART = makeImagePath("512/attack.png");
+    private static final String SKILL_S_ART = makeImagePath("512/skill.png");
+    private static final String POWER_S_ART = makeImagePath("512/power.png");
+    private static final String CARD_ENERGY_S = makeImagePath("512/energy.png");
+    private static final String TEXT_ENERGY = makeImagePath("512/text_energy.png");
+    private static final String ATTACK_L_ART = makeImagePath("1024/attack.png");
+    private static final String SKILL_L_ART = makeImagePath("1024/skill.png");
+    private static final String POWER_L_ART = makeImagePath("1024/power.png");
+    private static final String CARD_ENERGY_L = makeImagePath("1024/energy.png");
+    private static final String CHARSELECT_BUTTON = makeImagePath("charSelect/charButton.png");
+    private static final String CHARSELECT_PORTRAIT = makeImagePath("charSelect/charBG.png");
+
+    public static Settings.GameLanguage[] SupportedLanguages = {
+            Settings.GameLanguage.ENG,
+    };
+
+    public static String makeID(String idText) {
+        return modID + ":" + idText;
+    }
+
+    public static String makePath(String resourcePath) {
+        return modID + "Resources/" + resourcePath;
+    }
+
+    public static String makeImagePath(String resourcePath) {
+        return modID + "Resources/images/" + resourcePath;
+    }
+
+    public static String makeRelicPath(String resourcePath) {
+        return modID + "Resources/images/relics/" + resourcePath;
+    }
+
+    public static String makePowerPath(String resourcePath) {
+        return modID + "Resources/images/powers/" + resourcePath;
+    }
+
+    public static String makeCharacterPath(String resourcePath) {
+        return modID + "Resources/images/char/" + resourcePath;
+    }
+
+    public static String makeCardPath(String resourcePath) {
+        return modID + "Resources/images/cards/" + resourcePath;
+    }
+
+    private String getLangString() {
+        for (Settings.GameLanguage lang : SupportedLanguages) {
+            if (lang.equals(Settings.language)) {
+                return Settings.language.name().toLowerCase();
+            }
+        }
+        return "eng";
+    }
+
+    public PaintressMod() {
+        BaseMod.subscribe(this);
+        BaseMod.addColor(
+                Paintress.Enums.PAINTRESS_COLOR,
+                characterColor, characterColor, characterColor,
+                characterColor, characterColor, characterColor, characterColor,
+                ATTACK_S_ART, SKILL_S_ART, POWER_S_ART, CARD_ENERGY_S,
+                ATTACK_L_ART, SKILL_L_ART, POWER_L_ART,
+                CARD_ENERGY_L, TEXT_ENERGY
+        );
+    }
+
+    public static void initialize() {
+        new PaintressMod();
+    }
+
+    @Override
+    public void receiveEditCharacters() {
+        BaseMod.addCharacter(
+                new Paintress(Paintress.characterStrings.NAMES[1], Paintress.Enums.PAINTRESS),
+                CHARSELECT_BUTTON, CHARSELECT_PORTRAIT, Paintress.Enums.PAINTRESS
+        );
+
+        new AutoAdd(modID)
+                .packageFilter(AbstractPaintressPotion.class)
+                .any(AbstractPaintressPotion.class, (info, potion) -> {
+                    if (potion.pool == null)
+                        BaseMod.addPotion(potion.getClass(), potion.liquidColor, potion.hybridColor, potion.spotsColor, potion.ID);
+                    else
+                        BaseMod.addPotion(potion.getClass(), potion.liquidColor, potion.hybridColor, potion.spotsColor, potion.ID, potion.pool);
+                });
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        new AutoAdd(modID)
+                .packageFilter(AbstractPaintressRelic.class)
+                .any(AbstractPaintressRelic.class, (info, relic) -> {
+                    if (relic.color == null) {
+                        BaseMod.addRelic(relic, RelicType.SHARED);
+                    } else {
+                        BaseMod.addRelicToCustomPool(relic, relic.color);
+                    }
+                    if (!info.seen) {
+                        UnlockTracker.markRelicAsSeen(relic.relicId);
+                    }
+                });
+    }
+
+    @Override
+    public void receiveEditCards() {
+        new AutoAdd(modID)
+                .packageFilter(AbstractPaintressDynamicVariable.class)
+                .any(DynamicVariable.class, (info, var) ->
+                        BaseMod.addDynamicVariable(var));
+        new AutoAdd(modID)
+                .packageFilter(AbstractPaintressCard.class)
+                .setDefaultSeen(true)
+                .cards();
+    }
+
+    @Override
+    public void receiveEditStrings() {
+        String lang = getLangString();
+        BaseMod.loadCustomStringsFile(CardStrings.class,     modID + "Resources/localization/" + lang + "/Cardstrings.json");
+        BaseMod.loadCustomStringsFile(RelicStrings.class,    modID + "Resources/localization/" + lang + "/Relicstrings.json");
+        BaseMod.loadCustomStringsFile(CharacterStrings.class, modID + "Resources/localization/" + lang + "/Charstrings.json");
+        BaseMod.loadCustomStringsFile(PowerStrings.class,    modID + "Resources/localization/" + lang + "/Powerstrings.json");
+        BaseMod.loadCustomStringsFile(UIStrings.class,       modID + "Resources/localization/" + lang + "/UIstrings.json");
+        BaseMod.loadCustomStringsFile(OrbStrings.class,      modID + "Resources/localization/" + lang + "/Orbstrings.json");
+        BaseMod.loadCustomStringsFile(StanceStrings.class,   modID + "Resources/localization/" + lang + "/Stancestrings.json");
+        BaseMod.loadCustomStringsFile(PotionStrings.class,   modID + "Resources/localization/" + lang + "/Potionstrings.json");
+    }
+
+    @Override
+    public void receiveAddAudio() {
+        for (ProAudio a : ProAudio.values())
+            BaseMod.addAudio(makeID(a.name()), makePath("audio/" + a.name().toLowerCase() + ".ogg"));
+    }
+
+    @Override
+    public void receiveEditKeywords() {
+        Gson gson = new Gson();
+        String json = Gdx.files.internal(modID + "Resources/localization/" + getLangString() + "/Keywordstrings.json")
+                .readString(String.valueOf(StandardCharsets.UTF_8));
+        Keyword[] keywords = gson.fromJson(json, Keyword[].class);
+        if (keywords != null) {
+            for (Keyword keyword : keywords) {
+                BaseMod.addKeyword(modID, keyword.PROPER_NAME, keyword.NAMES, keyword.DESCRIPTION);
+            }
+        }
+    }
+}
