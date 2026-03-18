@@ -1,7 +1,7 @@
 package paintress.util;
 
 import basemod.patches.whatmod.WhatMod;
-import paintress.ModFile;
+import paintress.PaintressMod;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,7 +22,7 @@ import com.megacrit.cardcrawl.cards.red.Defend_Red;
 import com.megacrit.cardcrawl.cards.red.Strike_Red;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.random.Random;
-import paintress.cards.AbstractEasyCard;
+import paintress.cards.AbstractPaintressCard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +31,9 @@ import static com.badlogic.gdx.graphics.GL20.GL_DST_COLOR;
 import static com.badlogic.gdx.graphics.GL20.GL_ZERO;
 
 public class CardArtRoller {
-    private static final Texture attackMask = TexLoader.getTexture(ModFile.makeImagePath("masks/AttackMask.png"));
-    private static final Texture skillMask = TexLoader.getTexture(ModFile.makeImagePath("masks/SkillMask.png"));
-    private static final Texture powerMask = TexLoader.getTexture(ModFile.makeImagePath("masks/PowerMask.png"));
+    private static final Texture attackMask = TexLoader.getTexture(PaintressMod.makeImagePath("masks/AttackMask.png"));
+    private static final Texture skillMask = TexLoader.getTexture(PaintressMod.makeImagePath("masks/SkillMask.png"));
+    private static final Texture powerMask = TexLoader.getTexture(PaintressMod.makeImagePath("masks/PowerMask.png"));
 
     public static final String partialHueRodrigues =
             "vec3 applyHue(vec3 rgb, float hue)\n" +
@@ -188,7 +188,7 @@ public class CardArtRoller {
     private static FrameBuffer smallBuffer = null;
     private static OrthographicCamera smallCamera = null;
 
-    public static void computeCard(AbstractEasyCard c) {
+    public static void computeCard(AbstractPaintressCard c) {
         c.portrait = doneCards.computeIfAbsent(c.cardID, key -> {
             ReskinInfo r = infos.computeIfAbsent(key, key2 -> {
                 Random rng = new Random((long) c.cardID.hashCode());
