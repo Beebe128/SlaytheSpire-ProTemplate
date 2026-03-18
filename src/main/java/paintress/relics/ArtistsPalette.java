@@ -23,7 +23,7 @@ public class ArtistsPalette extends AbstractPaintressRelic {
     @Override
     public void atBattleStart() {
         flash();
-        applyToSelf(new GradientChargePower(AbstractDungeon.player, 2));
+        applyToSelf(new GradientChargePower(AbstractDungeon.player, 1));
     }
 
     @Override

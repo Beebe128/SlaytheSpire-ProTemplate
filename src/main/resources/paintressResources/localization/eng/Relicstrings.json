@@ -2,7 +2,7 @@
   "${ModID}:ArtistsPalette": {
     "NAME": "Artist's Palette",
     "FLAVOR": "A palette bearing every color Maelle ever used.",
-    "DESCRIPTIONS": ["At the start of each combat, gain 2 Gradient Charges."]
+    "DESCRIPTIONS": ["At the start of each combat, gain 1 Gradient Charge."]
   },
   "${ModID}:FencingFoil": {
     "NAME": "Fencing Foil",
@@ -42,6 +42,6 @@
   "${ModID}:GommageCore": {
     "NAME": "Gommage Core",
     "FLAVOR": "A crystallized remnant of erased reality.",
-    "DESCRIPTIONS": ["Gradient Charges persist between combats (max 15)."]
+    "DESCRIPTIONS": ["Gradient Charges persist between combats (max 3)."]
   }
 }
