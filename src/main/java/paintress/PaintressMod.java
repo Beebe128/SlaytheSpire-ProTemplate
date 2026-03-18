@@ -111,7 +111,7 @@ public class PaintressMod implements
     @Override
     public void receiveEditCharacters() {
         BaseMod.addCharacter(
-                new Paintress(Paintress.characterStrings.NAMES[1], Paintress.Enums.PAINTRESS),
+                new Paintress(Paintress.characterStrings.NAMES[0], Paintress.Enums.PAINTRESS),
                 CHARSELECT_BUTTON, CHARSELECT_PORTRAIT, Paintress.Enums.PAINTRESS
         );
 
