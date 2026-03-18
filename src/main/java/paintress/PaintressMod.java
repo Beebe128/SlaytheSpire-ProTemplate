@@ -10,21 +10,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.*;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import paintress.cards.AbstractPaintressCard;
 import paintress.cards.cardvars.AbstractPaintressDynamicVariable;
 import paintress.potions.AbstractPaintressPotion;
-import paintress.powers.DefensiveStancePower;
-import paintress.powers.OffensiveStancePower;
 import paintress.relics.AbstractPaintressRelic;
 import paintress.util.ProAudio;
-
-import static paintress.util.Wiz.*;
 
 import java.nio.charset.StandardCharsets;
 
@@ -36,8 +29,7 @@ public class PaintressMod implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditCharactersSubscriber,
-        AddAudioSubscriber,
-        OnPlayCardSubscriber {
+        AddAudioSubscriber {
 
     public static final String modID = "paintress";
 
@@ -178,32 +170,6 @@ public class PaintressMod implements
     public void receiveAddAudio() {
         for (ProAudio a : ProAudio.values())
             BaseMod.addAudio(makeID(a.name()), makePath("audio/" + a.name().toLowerCase() + ".ogg"));
-    }
-
-    /**
-     * Global stance-switch mechanic: playing an attack card automatically shifts stance.
-     *   Defensive → Offensive
-     *   Offensive → Defensive
-     *   Virtuose  → no stance
-     * Cards that explicitly enter a stance in their use() will override this via
-     * their queued actions running after this queued action.
-     */
-    @Override
-    public void receiveOnPlayCard(AbstractCard card, AbstractMonster monster) {
-        if (!(AbstractDungeon.player instanceof Paintress)) return;
-        if (card.type != AbstractCard.CardType.ATTACK) return;
-
-        atb(actionify(() -> {
-            if (AbstractPaintressCard.isInDefensive()) {
-                AbstractPaintressCard.clearStances();
-                applyToSelf(new OffensiveStancePower(adp(), 1));
-            } else if (AbstractPaintressCard.isInOffensive()) {
-                AbstractPaintressCard.clearStances();
-                applyToSelf(new DefensiveStancePower(adp(), 1));
-            } else if (AbstractPaintressCard.isInVirtuose()) {
-                AbstractPaintressCard.clearStances();
-            }
-        }));
     }
 
     @Override
