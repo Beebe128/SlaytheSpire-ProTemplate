@@ -113,7 +113,7 @@ public class Paintress extends CustomPlayer {
     public AbstractCard getStartCardForEvent() { return new Slash(); }
 
     @Override
-    public String getTitle(AbstractPlayer.PlayerClass playerClass) { return NAMES[1]; }
+    public String getTitle(AbstractPlayer.PlayerClass playerClass) { return TEXT[1]; }
 
     @Override
     public AbstractPlayer newInstance() { return new Paintress(name, chosenClass); }
