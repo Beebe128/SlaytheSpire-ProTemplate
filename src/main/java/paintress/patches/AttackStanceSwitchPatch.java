@@ -4,7 +4,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePostfixPatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import paintress.Paintress;
 import paintress.cards.AbstractPaintressCard;
@@ -25,13 +24,13 @@ import static paintress.util.Wiz.*;
  * override this base switch, because their stance actions are queued with
  * atb() (bottom of queue) AFTER this patch's queued action.
  */
-@SpirePatch2(clz = AbstractCard.class, method = "use")
+@SpirePatch2(clz = AbstractPlayer.class, method = "useCard")
 public class AttackStanceSwitchPatch {
 
     @SpirePostfixPatch
-    public static void postfix(AbstractCard __instance, AbstractPlayer p, AbstractMonster m) {
-        if (!(AbstractDungeon.player instanceof Paintress)) return;
-        if (__instance.type != AbstractCard.CardType.ATTACK) return;
+    public static void postfix(AbstractPlayer __instance, AbstractCard card, AbstractMonster m, int energyOnUse) {
+        if (!(__instance instanceof Paintress)) return;
+        if (card.type != AbstractCard.CardType.ATTACK) return;
 
         atb(actionify(() -> {
             if (AbstractPaintressCard.isInDefensive()) {
