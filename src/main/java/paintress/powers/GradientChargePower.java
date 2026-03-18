@@ -19,7 +19,7 @@ public class GradientChargePower extends AbstractPaintressPower {
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public static final int MAX_STACKS = 15;
+    public static final int MAX_STACKS = 3;
 
     public GradientChargePower(AbstractCreature owner, int amount) {
         super(POWER_ID, NAME, PowerType.BUFF, false, owner, amount);
@@ -34,5 +34,10 @@ public class GradientChargePower extends AbstractPaintressPower {
     @Override
     public void updateDescription() {
         description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1];
+    }
+
+    @Override
+    public void atStartOfTurn() {
+        // Charges persist between turns — no expiry
     }
 }

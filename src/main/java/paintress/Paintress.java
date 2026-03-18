@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
@@ -20,6 +22,10 @@ import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import paintress.cards.basic.Slash;
 import paintress.cards.basic.Parry;
+import paintress.cards.basic.VirtuoseStrike;
+import paintress.cards.common.OffensiveSwitch;
+import paintress.cards.common.Spark;
+import paintress.powers.GradientChargePower;
 import paintress.relics.ArtistsPalette;
 
 import java.util.ArrayList;
@@ -61,7 +67,18 @@ public class Paintress extends CustomPlayer {
         ArrayList<String> deck = new ArrayList<>();
         for (int i = 0; i < 4; i++) deck.add(Slash.ID);
         for (int i = 0; i < 4; i++) deck.add(Parry.ID);
+        deck.add(VirtuoseStrike.ID);
+        deck.add(OffensiveSwitch.ID);
+        deck.add(Spark.ID);
         return deck;
+    }
+
+    /** Gain 1 Gradient Charge at the start of every combat. */
+    @Override
+    public void atBattleStartPreDraw() {
+        super.atBattleStartPreDraw();
+        AbstractDungeon.actionManager.addToBottom(
+                new ApplyPowerAction(this, this, new GradientChargePower(this, 1), 1));
     }
 
     @Override

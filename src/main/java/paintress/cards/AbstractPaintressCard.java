@@ -11,11 +11,13 @@ import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import paintress.Paintress;
 import paintress.powers.*;
 import paintress.util.CardArtRoller;
@@ -40,6 +42,9 @@ public abstract class AbstractPaintressCard extends CustomCard {
     public boolean upgradedSecondDamage;
     public boolean isSecondDamageModified;
 
+    /** Gradient Charges required to play this card (0 = no cost). */
+    public int gradientCost = 0;
+
     private boolean needsArtRefresh = false;
 
     public AbstractPaintressCard(final String cardID, final int cost, final CardType type,
@@ -52,8 +57,10 @@ public abstract class AbstractPaintressCard extends CustomCard {
         super(cardID, "", getCardTextureString(cardID.replace(modID + ":", ""), type),
                 cost, "", type, color, rarity, target);
         cardStrings = CardCrawlGame.languagePack.getCardStrings(this.cardID);
-        rawDescription = cardStrings.DESCRIPTION;
-        name = originalName = cardStrings.NAME;
+        // Null-safe fallbacks so cards without JSON entries don't crash on upgrade
+        rawDescription = cardStrings.DESCRIPTION != null ? cardStrings.DESCRIPTION : "";
+        name = originalName = cardStrings.NAME != null ? cardStrings.NAME
+                : cardID.replace(modID + ":", "");
         initializeTitle();
         initializeDescription();
 
@@ -149,6 +156,29 @@ public abstract class AbstractPaintressCard extends CustomCard {
     }
 
     public abstract void upp();
+
+    @Override
+    public boolean canUse(AbstractPlayer p, AbstractMonster m) {
+        if (gradientCost > 0 && getGradientCharges() < gradientCost) {
+            cantUseMessage = "Need " + gradientCost + " Gradient Charge" + (gradientCost > 1 ? "s" : "") + ".";
+            return false;
+        }
+        return super.canUse(p, m);
+    }
+
+    /** Spends gradient charges (call this in use() for gradient-cost cards). */
+    protected void spendGradient(int amount) {
+        if (adp().hasPower(GradientChargePower.POWER_ID)) {
+            AbstractPower p = adp().getPower(GradientChargePower.POWER_ID);
+            p.amount -= amount;
+            if (p.amount <= 0) {
+                removePower(p);
+            } else {
+                p.updateDescription();
+                p.flash();
+            }
+        }
+    }
 
     public void update() {
         super.update();

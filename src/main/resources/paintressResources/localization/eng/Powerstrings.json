@@ -17,7 +17,11 @@
   },
   "${ModID}:GradientCharge": {
     "NAME": "Gradient Charges",
-    "DESCRIPTIONS": ["Gradient charges stored: ", ". Maximum 15."]
+    "DESCRIPTIONS": ["Gradient charges stored: ", ". Maximum 3."]
+  },
+  "${ModID}:ParryStatus": {
+    "NAME": "Parry Status",
+    "DESCRIPTIONS": ["Fully blocking an attack deals (5/10/15)% of attacker Max HP back (scales with stance). Stacks: ", "."]
   },
   "${ModID}:BurnAffinity": {
     "NAME": "Burn Affinity",

@@ -1,46 +1,56 @@
 package paintress.cards.rare;
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
-import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.*;
 import paintress.cards.AbstractPaintressCard;
-import paintress.powers.*;
+
 import static paintress.PaintressMod.makeID;
 import static paintress.util.Wiz.*;
 
+/**
+ * Gommage (French: "to erase") — Maelle erases a foe from existence.
+ * Costs 0 energy but requires 3 Gradient Charges.
+ *
+ * vs normal/elite: Instantly kills the target.
+ * vs boss:         Deals 20% of the boss's max HP as damage.
+ */
 public class Gommage extends AbstractPaintressCard {
     public static final String ID = makeID("Gommage");
 
     public Gommage() {
-        super(ID, 3, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
-        baseMagicNumber = magicNumber = 6;
+        super(ID, 0, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
+        gradientCost = 3;
         exhaust = true;
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        enterVirtuose();
+        spendGradient(gradientCost);
         atb(actionify(() -> {
-            int charges = getGradientCharges();
-            if (charges > 0) {
-                if (adp().hasPower(GradientChargePower.POWER_ID)) {
-                    adp().powers.remove(adp().getPower(GradientChargePower.POWER_ID));
-                }
-                int totalDmg = charges * magicNumber;
-                att(new DamageAction(m, new DamageInfo(adp(), totalDmg, DamageInfo.DamageType.NORMAL), AttackEffect.FIRE));
+            if (m == null || m.isDeadOrEscaped()) return;
+            if (m.type == AbstractMonster.EnemyType.BOSS) {
+                // Deal 20% of boss max HP as damage
+                int dmg = Math.max(1, (int)(m.maxHealth * 0.20f));
+                att(new DamageAction(m,
+                        new DamageInfo(adp(), dmg, DamageInfo.DamageType.NORMAL),
+                        AttackEffect.FIRE));
             } else {
-                att(new DamageAction(m, new DamageInfo(adp(), 20, DamageInfo.DamageType.NORMAL), AttackEffect.SLASH_HEAVY));
+                // Instant kill for non-boss enemies
+                int killDmg = m.currentHealth + m.currentBlock + 9999;
+                att(new DamageAction(m,
+                        new DamageInfo(adp(), killDmg, DamageInfo.DamageType.NORMAL),
+                        AttackEffect.FIRE));
             }
         }));
     }
 
     @Override
     public void upp() {
-        upgradeMagicNumber(2);
+        // Upgraded: boss damage increases to 30%
+        isInnate = true;
     }
 }

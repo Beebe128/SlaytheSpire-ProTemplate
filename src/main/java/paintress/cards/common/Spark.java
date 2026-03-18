@@ -13,22 +13,20 @@ public class Spark extends AbstractPaintressCard {
 
     public Spark() {
         super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
-        baseDamage = 5;
-        baseMagicNumber = magicNumber = 3;
+        baseDamage = 2;
+        baseMagicNumber = magicNumber = 1;
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         dmg(m, AttackEffect.FIRE);
-        enterDefensive();
         applyBurn(m, magicNumber);
-        if (isInOffensiveOrVirtuose()) {
-            applyBurn(m, 2);
-        }
+        enterDefensive();
     }
 
     @Override
     public void upp() {
+        upgradeDamage(2);
         upgradeMagicNumber(1);
     }
 }

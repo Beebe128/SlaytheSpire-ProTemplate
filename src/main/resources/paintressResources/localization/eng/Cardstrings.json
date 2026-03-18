@@ -1,15 +1,22 @@
 {
+  "${ModID}:VirtuoseStrike": {
+    "NAME": "Virtuose Strike",
+    "DESCRIPTION": "Gradient Cost: 1. NL Deal !D! damage !M! times. Enter [Virtuose] Stance.",
+    "UPGRADE_DESCRIPTION": "Gradient Cost: 1. NL Deal !D! damage !M! times. Enter [Virtuose] Stance."
+  },
   "${ModID}:Slash": {
     "NAME": "Slash",
     "DESCRIPTION": "Deal !D! damage."
   },
-  "${ModID}:Parry": {
-    "NAME": "Parry",
-    "DESCRIPTION": "Gain !B! Block."
+  "${ModID}:Dodge": {
+    "NAME": "Dodge",
+    "DESCRIPTION": "Gain !B! Block. Gain !M! [Parry Status].",
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. Gain !M! [Parry Status]."
   },
   "${ModID}:OffensiveSwitch": {
     "NAME": "Offensive Switch",
-    "DESCRIPTION": "Enter [Offensive] Stance. Deal !D! damage. Apply 2 Vulnerable."
+    "DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage. Enter [Offensive] Stance."
   },
   "${ModID}:Percee": {
     "NAME": "Percée",
@@ -17,7 +24,8 @@
   },
   "${ModID}:Spark": {
     "NAME": "Spark",
-    "DESCRIPTION": "Enter [Defensive] Stance. Deal !D! damage. Apply !M! Burn. NL If in [Offensive] or [Virtuose], apply 2 more Burn."
+    "DESCRIPTION": "Deal !D! damage. Apply !M! Burn. Enter [Defensive] Stance.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage. Apply !M! Burn. Enter [Defensive] Stance."
   },
   "${ModID}:FencersFlurry": {
     "NAME": "Fencer's Flurry",
@@ -61,7 +69,7 @@
   },
   "${ModID}:IronParry": {
     "NAME": "Iron Parry",
-    "DESCRIPTION": "Gain !B! Block. NL If in [Defensive] Stance, gain !M! additional Block."
+    "DESCRIPTION": "Gain !B! Block. Gain 1 [Parry Status]. NL If in [Defensive] Stance, gain !M! additional Block."
   },
   "${ModID}:Egide": {
     "NAME": "Égide",
@@ -102,7 +110,7 @@
   },
   "${ModID}:ParryStance": {
     "NAME": "Parry Stance",
-    "DESCRIPTION": "Gain !B! Block. Enter [Defensive] Stance."
+    "DESCRIPTION": "Gain !B! Block. Gain 2 [Parry Status]. Enter [Defensive] Stance."
   },
   "${ModID}:Preparation": {
     "NAME": "Preparation",
@@ -191,7 +199,8 @@
   },
   "${ModID}:PhoenixFlame": {
     "NAME": "Phoenix Flame",
-    "DESCRIPTION": "Apply 10 Burn to ALL enemies. NL Gradient Attack: does not consume your turn."
+    "DESCRIPTION": "Gradient Cost: 2. NL Apply !M! Burn to ALL enemies. Heal 20% of your Max HP.",
+    "UPGRADE_DESCRIPTION": "Gradient Cost: 2. NL Apply !M! Burn to ALL enemies. Heal 20% of your Max HP."
   },
   "${ModID}:SwiftStride": {
     "NAME": "Swift Stride",
@@ -260,7 +269,8 @@
   },
   "${ModID}:Gommage": {
     "NAME": "Gommage",
-    "DESCRIPTION": "Deal !D! damage to ALL enemies. Enter [Virtuose] Stance. NL Instantly kill enemies below 20% HP. Gradient Attack."
+    "DESCRIPTION": "Gradient Cost: 3. Exhaust. NL Instantly kill the target. NL vs Boss: Deal 20% of their Max HP as damage.",
+    "UPGRADE_DESCRIPTION": "Gradient Cost: 3. Innate. Exhaust. NL Instantly kill the target. NL vs Boss: Deal 20% of their Max HP as damage."
   },
   "${ModID}:VoidDomination": {
     "NAME": "Void Domination",

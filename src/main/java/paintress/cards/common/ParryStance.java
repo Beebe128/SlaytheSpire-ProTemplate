@@ -18,6 +18,7 @@ public class ParryStance extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         blck();
+        applyToSelf(new paintress.powers.ParryStatusPower(adp(), 2));
         enterDefensive();
     }
 

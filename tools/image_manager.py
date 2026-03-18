@@ -36,6 +36,7 @@ REPO_ROOT = find_repo_root()
 RESOURCES = REPO_ROOT / "src" / "main" / "resources" / "paintressResources"
 LOCALIZATION = RESOURCES / "localization" / "eng"
 IMAGES = RESOURCES / "images"
+AUDIO = RESOURCES / "audio"
 
 # ---------------------------------------------------------------------------
 # Data model construction
@@ -191,11 +192,54 @@ def build_data_model() -> dict:
         },
     ]
 
+    # ---- Sounds ----
+    # Sounds registered in ProAudio.java → paintressResources/audio/*.ogg
+    sounds_dir = AUDIO
+    KNOWN_SOUNDS = [
+        {"id": "attack_slash",    "label": "Attack — Slash"},
+        {"id": "attack_fire",     "label": "Attack — Fire / Burn"},
+        {"id": "stance_defensive","label": "Stance Enter — Defensive"},
+        {"id": "stance_offensive","label": "Stance Enter — Offensive"},
+        {"id": "stance_virtuose", "label": "Stance Enter — Virtuose"},
+        {"id": "gradient_gain",   "label": "Gradient Charge — Gain"},
+        {"id": "gradient_spend",  "label": "Gradient Charge — Spend"},
+        {"id": "parry_trigger",   "label": "Parry Status — Trigger"},
+        {"id": "phoenix_flame",   "label": "Phoenix Flame — Cast"},
+        {"id": "gommage",         "label": "Gommage — Cast"},
+        {"id": "virtuose_strike", "label": "Virtuose Strike — Cast"},
+    ]
+    sounds = []
+    for s in KNOWN_SOUNDS:
+        fname = f"{s['id']}.ogg"
+        fpath = sounds_dir / fname if sounds_dir.is_dir() else Path("/nonexistent") / fname
+        sounds.append({
+            "id": s["id"],
+            "label": s["label"],
+            "filename": fname,
+            "audio_rel": f"audio/{fname}",
+            "has_file": fpath.exists(),
+            "category": "sounds",
+        })
+    # Also pick up any extra .ogg files already present
+    if sounds_dir.is_dir():
+        known_ids = {s["id"] for s in KNOWN_SOUNDS}
+        for f in sorted(sounds_dir.iterdir()):
+            if f.suffix.lower() == ".ogg" and f.stem not in known_ids:
+                sounds.append({
+                    "id": f.stem,
+                    "label": f.stem,
+                    "filename": f.name,
+                    "audio_rel": f"audio/{f.name}",
+                    "has_file": True,
+                    "category": "sounds",
+                })
+
     return {
         "cards": cards,
         "powers": powers,
         "relics": relics,
         "character": char_assets,
+        "sounds": sounds,
     }
 
 
@@ -241,7 +285,7 @@ HTML = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paintress Mod — Image Manager</title>
+<title>Paintress Mod — Asset Manager</title>
 <style>
   :root {
     --bg:        #0d0b14;
@@ -651,8 +695,8 @@ HTML = r"""<!DOCTYPE html>
 <header>
   <div class="header-icon">🎨</div>
   <div>
-    <h1>Paintress Mod — Image Manager</h1>
-    <p>Drag &amp; drop replacement art onto any asset below</p>
+    <h1>Paintress Mod — Asset Manager</h1>
+    <p>Drag &amp; drop art images or sound files onto any asset below</p>
   </div>
   <div class="header-stats" id="header-stats"></div>
 </header>
@@ -663,6 +707,7 @@ HTML = r"""<!DOCTYPE html>
   <button class="tab" data-filter="powers">Powers <span class="count" id="cnt-powers">…</span></button>
   <button class="tab" data-filter="relics">Relics <span class="count" id="cnt-relics">…</span></button>
   <button class="tab" data-filter="character">Character <span class="count" id="cnt-character">…</span></button>
+  <button class="tab" data-filter="sounds">Sounds <span class="count" id="cnt-sounds">…</span></button>
 </div>
 
 <main id="main"></main>
@@ -916,20 +961,110 @@ function renderCharacter() {
   return html;
 }
 
+// ===== Sounds section =====
+function makeAudioDropZone(audioRel, labelText, afterUpload) {
+  const id = 'adz-' + audioRel.replace(/[^a-z0-9]/gi,'_');
+  const html = `
+    <div class="drop-zone" id="${id}" data-path="${escHtml(audioRel)}">
+      <input type="file" accept="audio/ogg,audio/*" tabindex="-1">
+      <span class="dz-icon">🔊</span>
+      ${escHtml(labelText)}
+    </div>`;
+  requestAnimationFrame(() => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const inp = el.querySelector('input[type="file"]');
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', e => {
+      e.preventDefault();
+      el.classList.remove('drag-over');
+      const file = e.dataTransfer?.files?.[0];
+      if (file) uploadAudio(file, audioRel, el, afterUpload);
+    });
+    inp.addEventListener('change', () => {
+      if (inp.files?.[0]) uploadAudio(inp.files[0], audioRel, el, afterUpload);
+      inp.value = '';
+    });
+  });
+  return html;
+}
+
+async function uploadAudio(file, targetRel, dropEl, afterUpload) {
+  const fd = new FormData();
+  fd.append('path', 'audio/' + targetRel.replace('audio/', ''));
+  fd.append('file', file);
+  try {
+    const res = await fetch('/upload-audio', { method: 'POST', body: fd });
+    const json = await res.json();
+    if (json.ok) {
+      showToast('success', '✓ Uploaded ' + file.name);
+      if (dropEl) dropEl.classList.add('has-file');
+      if (afterUpload) afterUpload();
+    } else {
+      showToast('error', '✗ Upload failed: ' + (json.error || 'unknown'));
+    }
+  } catch(e) {
+    showToast('error', '✗ Network error: ' + e.message);
+  }
+}
+
+function renderSounds() {
+  const sounds = DATA.sounds || [];
+  let html = `<div class="section-header"><h2>Sounds</h2><div class="section-divider"></div></div>
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:20px;font-size:0.82rem;color:var(--text-dim);line-height:1.7">
+    <strong style="color:var(--accent2)">📁 Audio format:</strong> OGG Vorbis (.ogg) — place files in
+    <code style="color:var(--text);background:var(--surface);padding:1px 6px;border-radius:4px">paintressResources/audio/</code><br>
+    <strong style="color:var(--accent2)">🔧 Registration:</strong> Add the ID to <code style="color:var(--text);background:var(--surface);padding:1px 6px;border-radius:4px">paintress/util/ProAudio.java</code> enum,
+    then reference via <code style="color:var(--text);background:var(--surface);padding:1px 6px;border-radius:4px">CardCrawlGame.sound.play(PaintressMod.makeID("YOUR_ID"))</code><br>
+    <strong style="color:var(--accent2)">🎞 GIF Animations:</strong> STS uses <strong>Spine animations (.scml + .png atlas)</strong> for character sprites,
+    not GIF files. For card art / power icons that animate, place a <code>.gif</code> where the <code>.png</code> would go —
+    STS's LibGDX renderer supports animated GIFs via <code>AnimatedGifDecoder</code> or a custom loader.
+    Character battle animations go in <code>paintressResources/images/char/mainChar/</code> as a Spine skeleton
+    (<code>static.scml</code> is the current placeholder).
+  </div>
+  <div class="grid" id="section-sounds">`;
+  for (const s of sounds) {
+    const badgeHtml = s.has_file ? badge('badge-placeholder','HAS FILE') : badge('badge-noart','MISSING');
+    const dropHtml = makeAudioDropZone(s.audio_rel, 'Drop .ogg or click to browse',
+      () => showToast('success', 'Sound uploaded: ' + s.filename));
+    const playHtml = s.has_file
+      ? `<audio controls style="width:100%;margin-top:6px;accent-color:var(--accent)">
+           <source src="/audio?path=${encodeURIComponent(s.audio_rel)}" type="audio/ogg">
+         </audio>` : '';
+    html += `<div class="asset-card" data-category="sounds">
+      <div class="card-body">
+        <div class="card-title-row">
+          <div class="card-name">${escHtml(s.label)}</div>
+          <div class="badges">${badgeHtml}</div>
+        </div>
+        <div class="card-path">${escHtml(s.audio_rel)}</div>
+        ${playHtml}
+        ${dropHtml}
+      </div>
+    </div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
 // ===== Counts =====
 function updateCounts() {
-  const total = DATA.cards.length + DATA.powers.length + DATA.relics.length + DATA.character.length;
+  const sounds = DATA.sounds || [];
+  const total = DATA.cards.length + DATA.powers.length + DATA.relics.length + DATA.character.length + sounds.length;
   document.getElementById('cnt-all').textContent     = total;
   document.getElementById('cnt-cards').textContent   = DATA.cards.length;
   document.getElementById('cnt-powers').textContent  = DATA.powers.length;
   document.getElementById('cnt-relics').textContent  = DATA.relics.length;
   document.getElementById('cnt-character').textContent = DATA.character.length;
+  document.getElementById('cnt-sounds').textContent  = sounds.length;
 
   const missingCards = DATA.cards.filter(c => !c.has_file).length;
   const missingPowers = DATA.powers.reduce((n,p) => n + p.sizes.filter(s=>!s.has_file).length,0);
   const missingRelics = DATA.relics.reduce((n,r) => n + r.variants.filter(v=>!v.has_file).length,0);
   const missingChar = DATA.character.filter(c=>!c.has_file).length;
-  const totalMissing = missingCards + missingPowers + missingRelics + missingChar;
+  const missingSounds = sounds.filter(s=>!s.has_file).length;
+  const totalMissing = missingCards + missingPowers + missingRelics + missingChar + missingSounds;
 
   document.getElementById('header-stats').innerHTML = `
     <div class="stat-chip">Total <span>${total}</span></div>
@@ -964,7 +1099,7 @@ function applyFilter(filter) {
 // ===== Init =====
 function init() {
   const main = document.getElementById('main');
-  main.innerHTML = renderCards() + renderPowers() + renderRelics() + renderCharacter();
+  main.innerHTML = renderCards() + renderPowers() + renderRelics() + renderCharacter() + renderSounds();
   updateCounts();
 
   document.getElementById('tabs').addEventListener('click', e => {
@@ -997,6 +1132,8 @@ class Handler(BaseHTTPRequestHandler):
             self._serve_html()
         elif path == "/image":
             self._serve_image(parsed.query)
+        elif path == "/audio":
+            self._serve_audio(parsed.query)
         else:
             self._send_404()
 
@@ -1004,6 +1141,8 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path == "/upload":
             self._handle_upload()
+        elif parsed.path == "/upload-audio":
+            self._handle_audio_upload()
         else:
             self._send_404()
 
@@ -1018,6 +1157,27 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
+
+    # ---- Serve an audio file ----
+    def _serve_audio(self, query: str):
+        params = parse_qs(query)
+        rel_parts = params.get("path", [""])
+        rel = rel_parts[0] if rel_parts else ""
+        rel_clean = os.path.normpath(rel).lstrip("/\\")
+        if ".." in rel_clean:
+            self._send_403()
+            return
+        abs_path = AUDIO / rel_clean.replace("audio/", "", 1)
+        if not abs_path.is_file():
+            self._send_404()
+            return
+        data = abs_path.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", "audio/ogg")
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(data)
 
     # ---- Serve an image file ----
     def _serve_image(self, query: str):
@@ -1089,6 +1249,38 @@ class Handler(BaseHTTPRequestHandler):
         try:
             dest.write_bytes(file_data)
             print(f"  [upload] {rel_path} ({len(file_data):,} bytes)")
+            self._json_response({"ok": True, "path": str(dest)})
+        except Exception as e:
+            self._json_response({"ok": False, "error": str(e)}, 500)
+
+    # ---- Handle audio upload ----
+    def _handle_audio_upload(self):
+        content_type = self.headers.get("Content-Type", "")
+        content_length = int(self.headers.get("Content-Length", 0))
+        if content_length > 50 * 1024 * 1024:
+            self._json_response({"ok": False, "error": "File too large (max 50MB)"}, 413)
+            return
+        try:
+            fields = parse_multipart(self.rfile, content_type, content_length)
+        except Exception as e:
+            self._json_response({"ok": False, "error": f"Parse error: {e}"}, 400)
+            return
+        path_field = fields.get("path", (None, None))
+        file_field = fields.get("file", (None, None))
+        rel_path = path_field[1].decode("utf-8").strip() if path_field[1] else ""
+        file_data = file_field[1] if file_field[1] else b""
+        if not rel_path or not file_data:
+            self._json_response({"ok": False, "error": "Missing path or file"}, 400)
+            return
+        rel_clean = os.path.normpath(rel_path).lstrip("/\\")
+        if ".." in rel_clean:
+            self._send_403()
+            return
+        dest = AUDIO / rel_clean.replace("audio/", "", 1)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            dest.write_bytes(file_data)
+            print(f"  [audio-upload] {rel_path} ({len(file_data):,} bytes)")
             self._json_response({"ok": True, "path": str(dest)})
         except Exception as e:
             self._json_response({"ok": False, "error": str(e)}, 500)

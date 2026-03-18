@@ -24,6 +24,7 @@ public class IronParry extends AbstractPaintressCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         blck();
+        applyToSelf(new ParryStatusPower(adp(), 1));
         if (isInDefensive()) {
             atb(new GainBlockAction(adp(), adp(), magicNumber));
         }
