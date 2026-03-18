@@ -28,9 +28,9 @@ import static paintress.util.Wiz.*;
 public class AttackStanceSwitchPatch {
 
     @SpirePostfixPatch
-    public static void postfix(AbstractPlayer __instance, AbstractCard card, AbstractMonster m, int energyOnUse) {
+    public static void postfix(AbstractPlayer __instance, AbstractCard c, AbstractMonster monster, int energyOnUse) {
         if (!(__instance instanceof Paintress)) return;
-        if (card.type != AbstractCard.CardType.ATTACK) return;
+        if (c.type != AbstractCard.CardType.ATTACK) return;
 
         atb(actionify(() -> {
             if (AbstractPaintressCard.isInDefensive()) {
